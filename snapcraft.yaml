@@ -1,0 +1,33 @@
+name: rest-cam
+version: 0.3
+vendor: Rick Spencer <rick.spencer@canonical.com>
+summary: A snap to make it easy to retrieve images from a webcam
+description: "Provides a simple way to access a webcam attached to a device. In order to access an image from the webcam, you can use http:ipddresofdevice:8082/api/photo . This will serve just a photo that can then be processed as desired by the consuming application, and this is the main intended use of the snap. You can check the status of the webcam with http:ipddresofdevice:8082/api/status . This will show if the device detects a webcam at /dev/video0. http:ipddresofdevice:8082 will serve a web page convenient for setting up the webcam. You can get the at the Rest All The Things project page here: https://launchpad.net/ratts . After installing the snap, run $sudo snappy hw-assign rest-cam.rickspencer3 /dev/video* in order to provide the necessary hardware access."
+
+
+icon: icon.png
+
+parts:
+ camera:
+  plugin: copy
+  files:
+   shoot: bin/shoot
+  stage-packages:
+   - fswebcam
+ server:
+  plugin: go
+  source: .
+ html:
+  plugin: copy
+  files:
+   templates/index.html : templates/index.html
+
+binaries:
+ shoot:
+  exec: bin/shoot
+
+services:
+ rest-cam:
+  start: bin/rest-cam
+  description: A snap to make it easy to retrieve images from a webcam
+  

@@ -1,0 +1,28 @@
+<HTML>
+ <HEAD>
+ <TITLE>REST-Cam</TITLE>
+ <SCRIPT type="text/javascript">
+ var refreshRate = 250
+ var i = 0
+ var timer = null
+ function init() {
+    timer = setInterval(update_img, refreshRate);
+ }
+ function update_img() {
+    document.getElementById("cam_img").src = "/api/photo?" + i
+    i++
+ }
+ function update_refresh() {
+    refreshRate = document.getElementById("rf_input").value
+    clearInterval(timer)
+    timer = setInterval(update_img, refreshRate);
+    refreshRate = document.getElementById("debug").innerHTML = refreshRate
+ }
+ </SCRIPT>
+ </HEAD>
+ <BODY onload="init();">
+  <IMG src="/api/photo" id="cam_img" />
+  <DIV><SPAN>Refresh (Milliseconds)</SPAN><INPUT type="number" id="rf_input" onchange="update_refresh()" value="500"/></DIV>
+  <DIV id="debug" />
+ </BODY>
+</HTML>

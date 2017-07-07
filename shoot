@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec $SNAP_APP_PATH/usr/bin/fswebcam $SNAP_APP_DATA_PATH/shot.jpg
